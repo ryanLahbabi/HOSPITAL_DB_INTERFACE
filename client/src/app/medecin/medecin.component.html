@@ -1,0 +1,24 @@
+<!-- medecin.component.html -->
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Spécialité</th>
+        <th>Années d'Expérience</th>
+        <th>ID Service</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medecin of medecins">
+        <td>{{ medecin.idmedecin }}</td>
+        <td>{{ medecin.prenom }}</td>
+        <td>{{ medecin.nom }}</td>
+        <td>{{ medecin.specialite }}</td>
+        <td>{{ medecin.anneesexperience }}</td>
+        <td>{{ medecin.idservice }}</td>
+      </tr> 
+    </tbody>
+  </table>
+  
