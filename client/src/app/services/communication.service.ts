@@ -35,9 +35,9 @@ public constructor(private readonly http: HttpClient) {}
     return this.http.get<Medecin[]>(this.BASE_URL);
   }
 
-  deleteMedecin(id: string): Observable<Medecin[]> {
+  deleteMedecin(id: string): Observable<Medecin> {
     console.log('id : ' + id)
-    return this.http.delete<Medecin[]>(this.BASE_URL+"/"+id);
+    return this.http.delete<Medecin>(this.BASE_URL+"/"+id);
   }
 
   saveMedecin(medecin: Medecin): Observable<Medecin>{

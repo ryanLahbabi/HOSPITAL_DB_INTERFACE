@@ -40,13 +40,8 @@ export class MedecinComponent implements OnInit {
     this.idMedecinModifying = null;
   }
   deleteMedecin(idmedecin: string){
-    this.CommunicationService.deleteMedecin(idmedecin).subscribe((data: Medecin[]) => {
-      console.log(data + 'delete')
-      console.log("idmedecin : " + idmedecin)
-      this.medecins = data
-      console.log(this.medecins)
-    });
-
+    this.CommunicationService.deleteMedecin(idmedecin).subscribe(() => {
+      this.medecins = this.medecins.filter(medecin => medecin.idmedecin !== idmedecin);})
   }
 
   // newMedecin(){

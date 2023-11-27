@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { inject, injectable } from "inversify";
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
+import { StatusCodes } from "http-status-codes";
 
 @injectable()
 export class DatabaseController {
@@ -39,7 +40,7 @@ export class DatabaseController {
       try {
         const suppression = await this.databaseService.deleteMedecin(id);
         console.log(suppression);
-        res.send(200).send(suppression);
+        res.status(StatusCodes.NO_CONTENT).send();
       } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");
