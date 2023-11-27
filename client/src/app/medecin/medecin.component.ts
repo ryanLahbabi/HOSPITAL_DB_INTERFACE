@@ -51,7 +51,7 @@ export class MedecinComponent implements OnInit {
   // }
   addMedecin(medecin: Medecin){
     console.log(medecin + 'medecin de mon form');
-    medecin.idmedecin = (this.medecins.length + 1).toString();
+    medecin.idmedecin = (this.medecins.length + 2).toString();
     this.medecins.push(medecin);
   }
 
