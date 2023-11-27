@@ -17,3 +17,13 @@ table {
   tr:hover {
     background-color: #e8e8e8; /* Couleur de fond au survol des lignes */
   }
+
+ .btn-supprimer {
+    background-color: red; 
+    color: white; 
+}
+
+.btn-modifier {
+    background-color: blue;
+    color: white;
+}

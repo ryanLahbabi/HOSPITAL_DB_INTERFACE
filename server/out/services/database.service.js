@@ -35,7 +35,7 @@ let DatabaseService = class DatabaseService {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("requetes");
             const client = yield this.pool.connect();
-            const res = yield client.query('SELECT * FROM Medecins;');
+            const res = yield client.query('SELECT * FROM Medecins ORDER BY idMedecin ASC;');
             console.log(res);
             const medecins = res.rows.map(row => ({
                 idmedecin: row.idmedecin.toString(),

@@ -18,7 +18,7 @@ export class DatabaseService {
   async getAllMedecins(): Promise<Medecin[]>{
     console.log("requetes")
     const client =  await this.pool.connect();
-    const res = await client.query('SELECT * FROM Medecins;');
+    const res = await client.query('SELECT * FROM Medecins ORDER BY idMedecin ASC;');
     console.log(res)
     const medecins: Medecin[] = res.rows.map(row => ({
       idmedecin: row.idmedecin.toString(), // Conversion en string si nécessaire

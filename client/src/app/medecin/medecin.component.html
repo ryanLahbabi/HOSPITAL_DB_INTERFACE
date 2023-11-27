@@ -8,17 +8,39 @@
       <th>Spécialité</th>
       <th>Années d'Expérience</th>
       <th>ID Service</th>
+      <th>Action</th>
+
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let medecin of medecins">
-      <td>{{ medecin.idmedecin }}</td>
-      <td>{{ medecin.prenom }}</td>
-      <td>{{ medecin.nom }}</td>
-      <td>{{ medecin.specialite }}</td>
-      <td>{{ medecin.annesexperiences }}</td>
-      <td>{{ medecin.idservice }}</td>
-      <button (click)="deleteMedecin(medecin.idmedecin)">Delete</button>
+      <ng-container *ngIf="idMedecinModifying === medecin.idmedecin; else viewMode">
+        <!-- Champs de formulaire pour la modification -->
+        <td><input [(ngModel)]="medecin.idmedecin" disabled></td>
+        <td><input [(ngModel)]="medecin.prenom"></td>
+        <td><input [(ngModel)]="medecin.nom"></td>
+        <td><input [(ngModel)]="medecin.specialite"></td>
+        <td><input [(ngModel)]="medecin.annesexperiences"></td>
+        <td><input [(ngModel)]="medecin.idservice"></td>
+        <td>
+          <button (click)="saveModification(medecin)" class="btn-save">Enregistrer</button>
+          <button (click)="cancelModification()" class="btn-cancel">Annuler</button>
+        </td>
+      </ng-container>
+      <ng-template #viewMode>
+        <!-- Affichage normal des données -->
+        <td>{{ medecin.idmedecin }}</td>
+        <td>{{ medecin.prenom }}</td>
+        <td>{{ medecin.nom }}</td>
+        <td>{{ medecin.specialite }}</td>
+        <td>{{ medecin.annesexperiences }}</td>
+        <td>{{ medecin.idservice }}</td>
+        <!-- ... autres données ... -->
+        <td>
+          <button (click)="deleteMedecins(medecin.idmedecin)" class="btn-supprimer">Supprimer</button>
+          <button (click)="startModification(medecin.idmedecin)" class="btn-modifier">Modifier</button>
+        </td>
+      </ng-template>
     </tr>
     <app-form-creation-medecin></app-form-creation-medecin>
   </tbody>
