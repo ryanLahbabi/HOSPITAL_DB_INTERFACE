@@ -53,7 +53,7 @@ export class DatabaseController {
       try {
         const ajout = await this.databaseService.addMedecin(medecin);
         console.log(ajout);
-        res.send(200).send(ajout);
+        res.status(StatusCodes.CREATED).send();
       } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");

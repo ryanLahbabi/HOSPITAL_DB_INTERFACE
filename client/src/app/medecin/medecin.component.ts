@@ -14,6 +14,7 @@ import { Medecin } from '../../../../common/interface/medecin';
 export class MedecinComponent implements OnInit {
   public medecinSubscription?: Subscription;
 
+
   medecins: Medecin[]=[];
   idMedecinModifying: number | null = null;
 
@@ -48,6 +49,11 @@ export class MedecinComponent implements OnInit {
   //   console.log("new medecin")
   //   this.medecin
   // }
+  addMedecin(medecin: Medecin){
+    console.log(medecin + 'medecin de mon form');
+    medecin.idmedecin = (this.medecins.length + 1).toString();
+    this.medecins.push(medecin);
+  }
 
   saveMedecin(medecin: Medecin){
     // this.CommunicationService.saveMedecin(medecin).subscribe((data: Medecin[]) => {

@@ -72,7 +72,7 @@ let DatabaseController = class DatabaseController {
             try {
                 const ajout = yield this.databaseService.addMedecin(medecin);
                 console.log(ajout);
-                res.send(200).send(ajout);
+                res.status(http_status_codes_1.StatusCodes.CREATED).send();
             }
             catch (err) {
                 console.error(err);

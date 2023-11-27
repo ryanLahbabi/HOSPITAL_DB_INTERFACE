@@ -42,6 +42,6 @@
         </td>
       </ng-template>
     </tr>
-    <app-form-creation-medecin></app-form-creation-medecin>
+    <app-form-creation-medecin (newMedecins)="addMedecin($event)"></app-form-creation-medecin>
   </tbody>
 </table>
