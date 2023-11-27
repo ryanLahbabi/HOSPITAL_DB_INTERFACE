@@ -1,0 +1,19 @@
+table {
+    width: 100%; /* Utilise toute la largeur disponible */
+    border-collapse: collapse; /* Pour éliminer l'espace entre les bordures */
+  }
+  th, td {
+    border: 1px solid #ddd; /* Ajoute une bordure légère à chaque cellule */
+    text-align: left; /* Alignement du texte à gauche */
+    padding: 8px; /* Espacement à l'intérieur des cellules */
+  }
+  th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes de colonnes */
+    font-size: 1.1em; /* Augmente légèrement la taille de la police pour les en-têtes */
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Couleur de fond en zébré pour les lignes */
+  }
+  tr:hover {
+    background-color: #e8e8e8; /* Couleur de fond au survol des lignes */
+  }

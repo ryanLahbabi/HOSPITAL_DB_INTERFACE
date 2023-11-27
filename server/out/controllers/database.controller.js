@@ -33,15 +33,18 @@ let DatabaseController = class DatabaseController {
         this.databaseService = databaseService;
         this.configureRouter();
     }
-    get router() {
-        const router = (0, express_1.Router)();
-        return router;
-    }
+    // public get router(): Router {
+    //   const router: Router = Router();
+    //   return router;
+    // }
     configureRouter() {
+        this.router = (0, express_1.Router)();
         this.router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log("db co");
             try {
+                console.log('je suis dans le get');
                 const medecins = yield this.databaseService.getAllMedecins();
+                console.log(medecins + ' mes medecins');
                 res.send(medecins);
             }
             catch (err) {

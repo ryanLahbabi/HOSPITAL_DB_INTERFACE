@@ -20,6 +20,7 @@ export class DatabaseService {
     console.log("requetes")
     const client =  await this.pool.connect();
     const res = await client.query('SELECT * FROM Medecins;');
+    console.log(res)
     client.release()
     return res;
   }

@@ -37,6 +37,7 @@ let DatabaseService = class DatabaseService {
             console.log("requetes");
             const client = yield this.pool.connect();
             const res = yield client.query('SELECT * FROM Medecins;');
+            console.log(res);
             client.release();
             return res;
         });
