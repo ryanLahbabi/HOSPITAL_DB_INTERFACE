@@ -58,6 +58,27 @@ let DatabaseService = class DatabaseService {
             client.release();
         });
     }
+    addMedecin(medecin) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("medecin add dans db service add medecine : " + medecin.annesexperiences + 'medecin annes' + medecin.idservice + 'medecin idservice' + medecin.idmedecin + 'medecin idmedecin');
+            const client = yield this.pool.connect();
+            const resId = yield client.query('SELECT idmedecin FROM Medecins ORDER BY idmedecin DESC LIMIT 1');
+            const lastId = resId.rows[0].idmedecin;
+            medecin.idmedecin = (parseInt(lastId) + 1).toString();
+            const res = yield client.query('INSERT INTO Medecins (idmedecin, prenom, nom, specialite, anneesexperience, idservice) VALUES ($1, $2, $3, $4, $5, $6);', [medecin.idmedecin, medecin.prenom, medecin.nom, medecin.specialite, medecin.annesexperiences, medecin.idservice]);
+            console.log(res);
+            client.release();
+        });
+    }
+    updateMedecin(medecin) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("medecin : " + medecin);
+            const client = yield this.pool.connect();
+            const res = yield client.query('UPDATE Medecins SET prenom = $1, nom = $2, specialite = $3, anneesexperience = $4, idservice = $5 WHERE idmedecin = $6;', [medecin.prenom, medecin.nom, medecin.specialite, medecin.annesexperiences, medecin.idservice, medecin.idmedecin]);
+            console.log(res);
+            client.release();
+        });
+    }
 };
 DatabaseService = __decorate([
     (0, inversify_1.injectable)()

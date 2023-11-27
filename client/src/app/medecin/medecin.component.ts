@@ -34,6 +34,27 @@ export class MedecinComponent implements OnInit {
 
   }
 
+  // newMedecin(){
+  //   console.log("new medecin")
+  //   this.medecin
+  // }
+
+  saveMedecin(medecin: Medecin){
+    // this.CommunicationService.saveMedecin(medecin).subscribe((data: Medecin[]) => {
+    //   console.log(data + 'save')
+    //   this.medecins = data
+    //   console.log(this.medecins)
+    // });
+  }
+
+  updateMedecin(medecin: Medecin){
+    this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
+      console.log(data + 'update')
+      this.medecins = data
+      console.log(this.medecins)
+    });
+  }
+
   ngOnDestroy(): void 
   {
     if(this.medecinSubscription){

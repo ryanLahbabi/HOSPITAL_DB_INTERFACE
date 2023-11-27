@@ -1,0 +1,26 @@
+<p>form-creation-medecin works!</p>
+<div>
+    <form [formGroup]="formCreationMedecin" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" formControlName="prenom">
+        </div>
+        <div>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" formControlName="nom">
+        </div>
+        <div>
+            <label for="specialite">Spécialité</label>
+            <input type="text" id="specialite" formControlName="specialite">
+        </div>
+        <div>
+            <label for="annesexperiences">Années d'Expérience</label>
+            <input type="number" id="annesexperiences" formControlName="annesexperiences" min="0" max="99">
+        </div>
+        <div>
+            <label for="idservice">ID Service</label>
+            <input type="number" id="idservice" formControlName="idservice" min="0" max="9">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
