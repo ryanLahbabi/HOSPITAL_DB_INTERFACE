@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {  QueryResult } from '../../../../common/interface/medecin';
 import { CommunicationService } from '../../../src/app/services/communication.service'
 import { Subscription } from 'rxjs';
+import { Medecin } from '../../../../common/interface/medecin';
 
 
 
@@ -14,14 +14,24 @@ import { Subscription } from 'rxjs';
 export class MedecinComponent implements OnInit {
   public medecinSubscription?: Subscription;
 
-  medecins: QueryResult
+  medecins: Medecin[]=[];
   constructor(public CommunicationService: CommunicationService) { }
   ngOnInit(): void {
-    this.medecinSubscription =  this.CommunicationService.getMedecins().subscribe((data: QueryResult) => {
+    this.medecinSubscription =  this.CommunicationService.getMedecins().subscribe((data: Medecin[]) => {
       console.log(data + 'init')
       this.medecins = data
-      console.log(this.medecins.rows[0].nom)
+      console.log(this.medecins)
     });
+  }
+  
+  deleteMedecin(idmedecin: string){
+    this.CommunicationService.deleteMedecin(idmedecin).subscribe((data: Medecin[]) => {
+      console.log(data + 'delete')
+      console.log("idmedecin : " + idmedecin)
+      this.medecins = data
+      console.log(this.medecins)
+    });
+
   }
 
   ngOnDestroy(): void 

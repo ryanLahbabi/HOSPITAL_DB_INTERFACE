@@ -33,5 +33,22 @@ export class DatabaseController {
         res.status(500).send('Server Error');
       }
     });
+
+    this.router.delete('/:id', async (req: Request, res: Response) => {
+      const id = req.params.id;
+      console.log(id + ' id');
+      try{
+        const suppression = await this.databaseService.deleteMedecin(id);
+        console.log(suppression);
+        res.send(200).send(suppression);
+      }
+      catch(err){
+        console.error(err);
+        res.status(500).send('Server Error');
+      }
+  
+  
+  });
+
   }
 }

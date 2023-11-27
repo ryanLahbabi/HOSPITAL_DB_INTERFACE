@@ -19,14 +19,13 @@ exports.DatabaseService = void 0;
 const inversify_1 = require("inversify");
 const pg = require("pg");
 require("reflect-metadata");
-//import { Medecin } from '../../../common/interface/medecin'
 let DatabaseService = class DatabaseService {
     constructor() {
         this.connectionConfig = {
             user: "postgres",
-            database: "hopital_bd",
-            password: "0604371187",
-            port: 5432,
+            database: "hopitalDB",
+            password: "Badrlpb1",
+            port: 5434,
             host: "localhost",
             keepAlive: true
         };
@@ -38,8 +37,25 @@ let DatabaseService = class DatabaseService {
             const client = yield this.pool.connect();
             const res = yield client.query('SELECT * FROM Medecins;');
             console.log(res);
+            const medecins = res.rows.map(row => ({
+                idmedecin: row.idmedecin.toString(),
+                prenom: row.prenom,
+                nom: row.nom,
+                specialite: row.specialite,
+                annesexperiences: row.anneesexperience,
+                idservice: row.idservice.toString() // Conversion en string si nécessaire
+            }));
             client.release();
-            return res;
+            return medecins;
+        });
+    }
+    deleteMedecin(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(" id delete" + id);
+            const client = yield this.pool.connect();
+            const res = yield client.query('DELETE FROM Medecins WHERE idmedecin = $1;', [id]);
+            console.log(res);
+            client.release();
         });
     }
 };

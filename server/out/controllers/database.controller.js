@@ -52,6 +52,19 @@ let DatabaseController = class DatabaseController {
                 res.status(500).send('Server Error');
             }
         }));
+        this.router.delete('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            console.log(id + ' id');
+            try {
+                const suppression = yield this.databaseService.deleteMedecin(id);
+                console.log(suppression);
+                res.send(200).send(suppression);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).send('Server Error');
+            }
+        }));
     }
 };
 DatabaseController = __decorate([

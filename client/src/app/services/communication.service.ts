@@ -2,7 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import {  QueryResult } from "../../../../common/interface/medecin";
+import { Medecin } from "../../../../common/interface/medecin";
 
 
 @Injectable()
@@ -31,7 +31,12 @@ public constructor(private readonly http: HttpClient) {}
 //     };
 //   }
 
-  getMedecins(): Observable<QueryResult> {
-    return this.http.get<QueryResult>(this.BASE_URL);
+  getMedecins(): Observable<Medecin[]> {
+    return this.http.get<Medecin[]>(this.BASE_URL);
+  }
+
+  deleteMedecin(id: string): Observable<Medecin[]> {
+    console.log('id : ' + id)
+    return this.http.delete<Medecin[]>(this.BASE_URL+"/"+id);
   }
 }
