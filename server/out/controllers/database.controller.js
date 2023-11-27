@@ -39,22 +39,22 @@ let DatabaseController = class DatabaseController {
     // }
     configureRouter() {
         this.router = (0, express_1.Router)();
-        this.router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.router.get("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log("db co");
             try {
-                console.log('je suis dans le get');
+                console.log("je suis dans le get");
                 const medecins = yield this.databaseService.getAllMedecins();
-                console.log(medecins + ' mes medecins');
+                console.log(medecins + " mes medecins");
                 res.send(medecins);
             }
             catch (err) {
                 console.error(err);
-                res.status(500).send('Server Error');
+                res.status(500).send("Server Error");
             }
         }));
-        this.router.delete('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.router.delete("/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            console.log(id + ' id');
+            console.log(id + " id");
             try {
                 const suppression = yield this.databaseService.deleteMedecin(id);
                 console.log(suppression);
@@ -62,7 +62,33 @@ let DatabaseController = class DatabaseController {
             }
             catch (err) {
                 console.error(err);
-                res.status(500).send('Server Error');
+                res.status(500).send("Server Error");
+            }
+        }));
+        this.router.post("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const medecin = req.body;
+            console.log(medecin + " medecin du post" + typeof (medecin) + 'type medecin');
+            try {
+                const ajout = yield this.databaseService.addMedecin(medecin);
+                console.log(ajout);
+                res.send(200).send(ajout);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).send("Server Error");
+            }
+        }));
+        this.router.put("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const medecin = req.body;
+            console.log(medecin + " medecin");
+            try {
+                const ajout = yield this.databaseService.updateMedecin(medecin);
+                console.log(ajout);
+                res.send(200).send(ajout);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).send("Server Error");
             }
         }));
     }

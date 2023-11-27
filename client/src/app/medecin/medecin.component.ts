@@ -15,6 +15,8 @@ export class MedecinComponent implements OnInit {
   public medecinSubscription?: Subscription;
 
   medecins: Medecin[]=[];
+  idMedecinModifying: number | null = null;
+
   constructor(public CommunicationService: CommunicationService) { }
   ngOnInit(): void {
     this.medecinSubscription =  this.CommunicationService.getMedecins().subscribe((data: Medecin[]) => {
@@ -23,7 +25,20 @@ export class MedecinComponent implements OnInit {
       console.log(this.medecins)
     });
   }
-  
+  startModification(idmedecin: number){
+    this.idMedecinModifying = idmedecin;
+  }
+  saveModification(medecin: Medecin){
+    this.idMedecinModifying = null;
+    this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
+      console.log(data + 'update')
+      this.medecins = data
+      console.log(this.medecins)
+    });
+  }
+  cancelModification(){
+    this.idMedecinModifying = null;
+  }
   deleteMedecin(idmedecin: string){
     this.CommunicationService.deleteMedecin(idmedecin).subscribe((data: Medecin[]) => {
       console.log(data + 'delete')
@@ -32,6 +47,27 @@ export class MedecinComponent implements OnInit {
       console.log(this.medecins)
     });
 
+  }
+
+  // newMedecin(){
+  //   console.log("new medecin")
+  //   this.medecin
+  // }
+
+  saveMedecin(medecin: Medecin){
+    // this.CommunicationService.saveMedecin(medecin).subscribe((data: Medecin[]) => {
+    //   console.log(data + 'save')
+    //   this.medecins = data
+    //   console.log(this.medecins)
+    // });
+  }
+
+  updateMedecin(medecin: Medecin){
+    this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
+      console.log(data + 'update')
+      this.medecins = data
+      console.log(this.medecins)
+    });
   }
 
   ngOnDestroy(): void 
