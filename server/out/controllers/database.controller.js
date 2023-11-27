@@ -26,6 +26,7 @@ const express_1 = require("express");
 const inversify_1 = require("inversify");
 const database_service_1 = require("../services/database.service");
 const types_1 = require("../types");
+const http_status_codes_1 = require("http-status-codes");
 let DatabaseController = class DatabaseController {
     constructor(
     // @ts-ignore -- À ENLEVER LORSQUE L'IMPLÉMENTATION EST TERMINÉE
@@ -58,7 +59,7 @@ let DatabaseController = class DatabaseController {
             try {
                 const suppression = yield this.databaseService.deleteMedecin(id);
                 console.log(suppression);
-                res.send(200).send(suppression);
+                res.status(http_status_codes_1.StatusCodes.NO_CONTENT).send();
             }
             catch (err) {
                 console.error(err);
@@ -71,7 +72,7 @@ let DatabaseController = class DatabaseController {
             try {
                 const ajout = yield this.databaseService.addMedecin(medecin);
                 console.log(ajout);
-                res.send(200).send(ajout);
+                res.status(http_status_codes_1.StatusCodes.CREATED).send();
             }
             catch (err) {
                 console.error(err);

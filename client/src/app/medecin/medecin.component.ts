@@ -14,6 +14,7 @@ import { Medecin } from '../../../../common/interface/medecin';
 export class MedecinComponent implements OnInit {
   public medecinSubscription?: Subscription;
 
+
   medecins: Medecin[]=[];
   idMedecinModifying: number | null = null;
 
@@ -40,19 +41,19 @@ export class MedecinComponent implements OnInit {
     this.idMedecinModifying = null;
   }
   deleteMedecin(idmedecin: string){
-    this.CommunicationService.deleteMedecin(idmedecin).subscribe((data: Medecin[]) => {
-      console.log(data + 'delete')
-      console.log("idmedecin : " + idmedecin)
-      this.medecins = data
-      console.log(this.medecins)
-    });
-
+    this.CommunicationService.deleteMedecin(idmedecin).subscribe(() => {
+      this.medecins = this.medecins.filter(medecin => medecin.idmedecin !== idmedecin);})
   }
 
   // newMedecin(){
   //   console.log("new medecin")
   //   this.medecin
   // }
+  addMedecin(medecin: Medecin){
+    console.log(medecin + 'medecin de mon form');
+    medecin.idmedecin = (this.medecins.length + 2).toString();
+    this.medecins.push(medecin);
+  }
 
   saveMedecin(medecin: Medecin){
     // this.CommunicationService.saveMedecin(medecin).subscribe((data: Medecin[]) => {
