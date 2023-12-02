@@ -1,4 +1,4 @@
-<!-- medecin.component.html -->
+
 <table>
   <thead>
     <tr>
@@ -15,7 +15,7 @@
   <tbody>
     <tr *ngFor="let medecin of medecins">
       <ng-container *ngIf="idMedecinModifying === medecin.idmedecin; else viewMode">
-        <!-- Champs de formulaire pour la modification -->
+        
         <td><input [(ngModel)]="medecin.idmedecin" disabled></td>
         <td><input [(ngModel)]="medecin.prenom"></td>
         <td><input [(ngModel)]="medecin.nom"></td>
@@ -24,24 +24,30 @@
         <td><input [(ngModel)]="medecin.idservice"></td>
         <td>
           <button (click)="saveModification(medecin)" class="btn-save">Enregistrer</button>
-          <button (click)="cancelModification()" class="btn-cancel">Annuler</button>
+          <button (click)="cancelModification(medecin.idmedecin)" class="btn-cancel">Annuler</button>
         </td>
       </ng-container>
       <ng-template #viewMode>
-        <!-- Affichage normal des données -->
+        
+        
         <td>{{ medecin.idmedecin }}</td>
         <td>{{ medecin.prenom }}</td>
         <td>{{ medecin.nom }}</td>
         <td>{{ medecin.specialite }}</td>
         <td>{{ medecin.annesexperiences }}</td>
         <td>{{ medecin.idservice }}</td>
-        <!-- ... autres données ... -->
         <td>
-          <button (click)="deleteMedecin(medecin.idmedecin)" class="btn-supprimer">Supprimer</button>
-          <button (click)="startModification(medecin.idmedecin)" class="btn-modifier">Modifier</button>
+          <button (click)="deleteMedecin(medecin.idmedecin)" class="btn-supprimer"><i class="fa fa-trash"></i>Supprimer</button>
+          <button (click)="startModification(medecin.idmedecin)" class="btn-modifier"><i class="fa fa-edit"></i>Modifier</button>
         </td>
       </ng-template>
-    </tr>
-    <app-form-creation-medecin (newMedecins)="addMedecin($event)"></app-form-creation-medecin>
+
+      <tr>
+        <td colspan="7">
+          <app-form-creation-medecin (newMedecins)="addMedecin($event)"></app-form-creation-medecin>
+        </td>
+      </tr>
+
   </tbody>
+  
 </table>

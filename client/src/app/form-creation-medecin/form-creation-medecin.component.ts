@@ -14,36 +14,56 @@ import { Output } from "@angular/core";
 export class FormCreationMedecinComponent implements OnInit {
   formCreationMedecin: FormGroup;
   medecin: Medecin;
+  directSubmit = true;
   @Output() newMedecins = new EventEmitter<Medecin>();
 
-  constructor(
-    private fb: FormBuilder,
-    private communicationService: CommunicationService
-  ) 
-  {
+ constructor(private fb: FormBuilder, private communicationService: CommunicationService) {
     this.formCreationMedecin = this.fb.group({
       prenom: ['', Validators.required],
       nom: ['', Validators.required],
       specialite: ['', Validators.required],
-      annesexperiences: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
-      idservice: ['', [Validators.required, Validators.min(0), Validators.max(9)]]
-    })
-  }  
+      annesexperiences: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      idservice: [null, [Validators.required, Validators.min(0), Validators.max(9)]]
+    });
+  }
 
 
   ngOnInit(): void {
 
   }
+
+  sendField() {
+    this.communicationService.saveMedecin(this.medecin).subscribe(() => { 
+    })
+    this.newMedecins.emit(this.medecin);
+    this.formCreationMedecin.reset();
+
+  }
+
+  onFieldClick(): void {
+    this.directSubmit = false; 
+  }
   onSubmit() {
+    console.log("wshh")
+    if (this.directSubmit)
+      {
+         this.medecin = {
+          idmedecin: '',
+          prenom: 'Zied',
+          nom: 'Lahbabi',
+          specialite: 'Dermatologie',
+          annesexperiences: 7,
+          idservice: '0',
+        };
+      this.sendField();
+      }
+
     if (this.formCreationMedecin.valid) {
       console.log(this.formCreationMedecin.value);
-      this.medecin = this.formCreationMedecin.value;
-      console.log(this.medecin + 'medecin de mon form');
-      this.communicationService.saveMedecin(this.medecin).subscribe(() => { 
-        console.log(this.medecin + 'medecin de mon form');
-      })
-      this.newMedecins.emit(this.medecin);
-      this.formCreationMedecin.reset();
+        this.medecin = this.formCreationMedecin.value;
+        this.sendField();
+    
   }
 }
 }
+

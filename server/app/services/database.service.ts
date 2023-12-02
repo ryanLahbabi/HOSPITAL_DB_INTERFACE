@@ -6,9 +6,9 @@ import { Medecin } from "@app/interface/medecin";
 export class DatabaseService {
   public connectionConfig: pg.ConnectionConfig = {
     user: "postgres",
-    database: "hopitalDB",
-    password: "Badrlpb1",
-    port: 5434,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
+    database: "hopital_bd",
+    password: "0604371187",
+    port: 5432,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
     host: "localhost",
     keepAlive: true
   };
