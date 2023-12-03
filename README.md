@@ -1,49 +1,63 @@
-# INF3710
-Application vierge pour le TP5 du cours d'[INF3710 Fichiers et bases de données ](https://www.polymtl.ca/programmes/cours/fichiers-et-bases-de-donnees) à Polytechnique Montréal.
+# Hospital Management Web Application
 
-## Important
+This project is a web application built upon the `hopital_bd` database, designed to manage a list of medical practitioners within a hospital setting. The application provides a user-friendly interface for viewing, adding, modifying, and deleting doctor records.
 
-Les commandes débutant par `npm` ou `yarn` doivent être exécutées dans le dossier `client` ou le dossier `server`.
+## Features
 
-## Installation des dépendances
+- **View Doctors**: A page dedicated to displaying all fields and entries of the `Medecin` table.
+- **Manage Doctors**: Modal-driven interfaces to add (INSERT), modify (UPDATE), and delete (DELETE) doctor records within the database.
+- **Error Handling**: The application robustly handles database errors, such as foreign key reference issues, and provides user-friendly error descriptions through modals.
+- **Dedicated Management Pages**: Separate pages for adding, modifying, and deleting doctor records.
+  - **Add Doctor**: Includes a form with default values for quick testing and dropdown lists for selecting values like specialties and service IDs fetched from the database.
+  - **Modify Doctor**: Allows for loading and editing of existing doctor information from the database.
+  - **Delete Doctor**: Facilitates the removal of doctor records with proper confirmations and error handling.
+- **Homepage**: Contains direct links to the aforementioned features for easy navigation.
 
--   Installer `npm`
--   Exécuter `npm -v` et `node -v` dans une fenêtre de commande pour s'assurer de bien voir les versions, ce qui confirme l'installation.
--   Exécuter `npm install` dans le dossier `client` et le dossier `server`.
+## Getting Started
 
-## Démarrer l’application
+To get started with this application:
 
-Exécuter : `npm start` dans le dossier `client` et le dossier `server`.
+1. Clone the repository to your local machine.
+2. Ensure you have [Node.js](https://nodejs.org/) and [Angular CLI](https://angular.io/cli) installed.
+3. Install the dependencies by running `npm install` in the project root.
+4. Serve the application locally with `ng serve`. Navigate to `http://localhost:4200/` to view it in the browser.
 
-Client:
-Une page web: `http://localhost:4200/` devrait s'ouvrir automatiquement.
+## Usage
 
-Serveur:
-Écoute sur le port 3000 du client local (localhost) AKA 127.0.0.1 : `http://localhost:3000`.
+The application is straightforward to use:
 
-## Générer de nouveau module (Client Side)
+- Navigate to the **homepage** to find links to all the functionalities.
+- Use the **View Doctors** page to see all current doctor records.
+- To **add** a new doctor, click the add button and fill in the form details.
+- To **modify** a doctor, click the edit button next to their record, update the information in the form, and submit.
+- To **delete** a doctor, use the delete button next to their record and confirm the action.
 
-En utilisant les commandes Angular CLI: 
-	`ng g c component-name` pour un nouveau composant.
-	`ng g s service-name` pour un nouveau service.
+## Built With
 
-Vous pouvez aussi utiliser `ng g directive|pipe|service|class|guard|interface|enum|module nameOfWhatYouWant` pour d'autres modules de votre projet.
+- [Angular](https://angular.io/) - A platform for building mobile and desktop web applications.
+- [Angular Material](https://material.angular.io/) - Material Design components for Angular.
 
-## Tests Unitaires
+## Resources
 
--   Exécuter `npm run test`.
+- The application guide is available on Moodle: [Web Application Tutorial](#).
 
--   Exécuter `npm run coverage` pour générer un rapport de couverture.
+## Contributing
 
-## TSLint
+Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the process for submitting pull requests to us.
 
--   Execute `npm run lint`.
+## Authors
 
--   Execute `npm run lint -- --fix` or `yarn lint --fix` to automatically resolve certain lint errors.
+- **Your Name** - *Initial work* - [YourGithubProfile](#)
 
-# Glossaire
-| Mot | Definition  |
-|---|---|
-| NPM | Node Package Manager  |
-| NVM | Node Version Manager  |
-| CLI | Command Line Interface  |
+See also the list of [contributors](#) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](#) file for details.
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
+
