@@ -15,21 +15,43 @@
   <tbody>
     <tr *ngFor="let medecin of medecins">
       <ng-container *ngIf="idMedecinModifying === medecin.idmedecin; else viewMode">
-        
         <td><input [(ngModel)]="medecin.idmedecin" disabled></td>
-        <td><input [(ngModel)]="medecin.prenom"></td>
-        <td><input [(ngModel)]="medecin.nom"></td>
-        <td><input [(ngModel)]="medecin.specialite"></td>
-        <td><input [(ngModel)]="medecin.annesexperiences"></td>
-        <td><input [(ngModel)]="medecin.idservice"></td>
+        <td><input type="text"  [(ngModel)]="medecin.prenom " maxlength="20" onkeydown="return /[a-zA-Z]/i.test(event.key)"></td>
+        <td><input [(ngModel)]="medecin.nom" onkeydown="return /[a-zA-Z]/i.test(event.key)" maxlength="20" ></td>
+        <td>
+          <select id="specialite" [(ngModel)]="medecin.specialite">
+            <option value="Dermatologie">Dermatologie</option>
+            <option value="Cardiologue">Neurologie</option>
+            <option value="Ophtalmologie">Ophtalmologie</option>
+            <option value="Orthopédie">Orthopédie</option>
+            <option value="Psychiatrie">Psychiatrie</option>
+            <option value="Cardiologie">Cardiologie</option>
+            <option value="Pédiatrie">Pédiatrie</option>
+            <option value="Chirurgie">Chirurgie</option>
+            <option value="Gynécologie">Gynécologie</option>
+            <option value="Radiologie">Radiologie</option>
+          </select></td>
+        <td><input type="number" min = "0" max = "99"[(ngModel)]="medecin.annesexperiences"></td>
+        <td>
+          <select id="idservice" [(ngModel)]="medecin.idservice">
+            <option value="0" >0 (Dermatologie) </option>
+            <option value="1">1 (Neurologie) </option>
+            <option value="2">2 (Ophtalmologie)</option>
+            <option value="3">3 (Orthopédie)</option>
+            <option value="4">4 (Psychiatrie)</option>
+            <option value="5">5 (Cardiologie)</option>
+            <option value="6">6 (Pédiatrie) </option>
+            <option value="7">7 (Chirurgie)</option>
+            <option value="8">8 (Gynécologie)</option>
+            <option value="9">9 (Radiologie)</option>
+          </select>
+        </td>
         <td>
           <button (click)="saveModification(medecin)" class="btn-save">Enregistrer</button>
           <button (click)="cancelModification(medecin.idmedecin)" class="btn-cancel">Annuler</button>
         </td>
       </ng-container>
       <ng-template #viewMode>
-        
-        
         <td>{{ medecin.idmedecin }}</td>
         <td>{{ medecin.prenom }}</td>
         <td>{{ medecin.nom }}</td>

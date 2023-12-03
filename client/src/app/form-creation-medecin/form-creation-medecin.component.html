@@ -2,15 +2,15 @@
     <form [formGroup]="formCreationMedecin" (ngSubmit)="onSubmit()">
       <div>
         <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" formControlName="prenom" placeholder="Zied" (focus)="onFieldClick()" >
+        <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="prenom" formControlName="prenom" placeholder="Zied" (focus)="onFieldClick()" >
       </div>
       <div>
         <label for="nom">Nom</label>
-        <input type="text" id="nom" formControlName="nom" placeholder="Lahbabi" (focus)="onFieldClick()">
+        <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="nom" formControlName="nom" placeholder="Lahbabi" (focus)="onFieldClick()">
       </div>
       <div>
         <label for="specialite">Spécialité</label>
-        <select id="specialite" formControlName="specialite"  placeholder="Dermatologie">
+        <select id="specialite" formControlName="specialite" >
           <option value="Dermatologie" selected>Dermatologie</option>
           <option value="Cardiologue">Neurologie</option>
           <option value="Ophtalmologie">Ophtalmologie</option>

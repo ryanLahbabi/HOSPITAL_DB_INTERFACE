@@ -30,9 +30,7 @@ export class MedecinComponent implements OnInit {
   constructor(public CommunicationService: CommunicationService, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.medecinSubscription =  this.CommunicationService.getMedecins().subscribe((data: Medecin[]) => {
-      console.log(data + 'init')
       this.medecins = data
-      console.log(this.medecins)
     });
   }
   startModification(idmedecin: number){
@@ -46,12 +44,15 @@ export class MedecinComponent implements OnInit {
   }
   saveModification(medecin: Medecin){
     this.idMedecinModifying = null;
-    this.warnUser()
-    this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
-      console.log(data + 'update')
-      this.medecins = data
-      console.log(this.medecins)
-    });
+    if(!this.verifyValues(medecin)){
+      this.warnUser()
+      this.cancelModification(medecin.idmedecin)
+    }
+    else{
+      this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
+        this.medecins = data
+      });
+    }
   }
   cancelModification(idmedecin: string){
     if (this.idMedecinModifying !== null) {
@@ -75,18 +76,39 @@ export class MedecinComponent implements OnInit {
 }
 
   addMedecin(medecin: Medecin){
-    console.log(medecin + 'medecin de mon form');
-    medecin.idmedecin = (this.medecins.length + 5).toString();
+    console.log('addmed')
+    if(!this.verifyValues(medecin)){
+    console.log('warninnggg')
+
+      this.warnUser();
+    }
+    else{
+      
+    medecin.idmedecin = (parseInt( this.medecins[this.medecins.length-1].idmedecin) + 1).toString();
+    console.log(medecin.idmedecin )
+    console.log('goodvalue')
+
     this.medecins.push(medecin);
+    }
   }
 
   updateMedecin(medecin: Medecin){
     this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
-      console.log(data + 'update')
       this.medecins = data
-      console.log(this.medecins)
     });
   }
+
+  verifyValues(medecin: Medecin): boolean {
+
+    if (typeof medecin.annesexperiences === 'number' && medecin.annesexperiences >= 0 && medecin.annesexperiences <= 99 ) {
+      if (typeof medecin.prenom === 'string' ) 
+      if (typeof medecin.nom === 'string' ) 
+        return true;
+      }
+    
+    return false; 
+  }
+  
 
   ngOnDestroy(): void 
   {

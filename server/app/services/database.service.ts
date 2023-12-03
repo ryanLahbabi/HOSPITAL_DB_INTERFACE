@@ -14,6 +14,8 @@ export class DatabaseService {
   };
   
   public pool: pg.Pool = new pg.Pool(this.connectionConfig);
+  private isConstraintDropped: boolean = false;  
+
 
   async getAllMedecins(): Promise<Medecin[]>{
     console.log("requetes")
@@ -21,12 +23,12 @@ export class DatabaseService {
     const res = await client.query('SELECT * FROM Medecins ORDER BY idMedecin ASC;');
     console.log(res)
     const medecins: Medecin[] = res.rows.map(row => ({
-      idmedecin: row.idmedecin.toString(), // Conversion en string si nécessaire
+      idmedecin: row.idmedecin.toString(),
       prenom: row.prenom,
       nom: row.nom,
       specialite: row.specialite,
-      annesexperiences: row.anneesexperience, // Assurez-vous que les noms correspondent
-      idservice: row.idservice.toString() // Conversion en string si nécessaire
+      annesexperiences: row.anneesexperience, 
+      idservice: row.idservice.toString() 
     }));
     client.release()
     
@@ -36,6 +38,13 @@ export class DatabaseService {
   async deleteMedecin(id: string): Promise<void>{ 
     console.log(" id delete"+ id);
     const client =  await this.pool.connect();
+
+    if (!this.isConstraintDropped) {
+
+      await client.query('ALTER TABLE rendezvous DROP CONSTRAINT rendezvous_idmedecin_fkey;');
+      this.isConstraintDropped = true; 
+    }
+
     const res = await client.query('DELETE FROM Medecins WHERE idmedecin = $1;', [id]);
     console.log(res);
     client.release();
