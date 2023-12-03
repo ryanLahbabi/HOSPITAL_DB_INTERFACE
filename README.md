@@ -39,8 +39,8 @@ The application is straightforward to use:
 
 ## Authors
 
-- **RYAN LAHBABI
--  ZIED EL KAABI **
+- RYAN LAHBABI
+- ZIED EL KAABI
 
 
 
