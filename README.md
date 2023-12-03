@@ -1,6 +1,6 @@
-# Hospital Management Web Application
+# Hospital Web Application MANAGED WITH POSTGRESQL DB
 
-This project is a web application built upon the `hopital_bd` database, designed to manage a list of medical practitioners within a hospital setting. The application provides a user-friendly interface for viewing, adding, modifying, and deleting doctor records.
+This project is a web application built upon the `hopital_bd` database, designed to manage a list of medical practitioners within a hospital setting. The application provides a user-friendly interface for viewing, adding, modifying, and deleting doctor records managed with a POSTRGESQL databse.
 
 ## Features
 
@@ -37,27 +37,10 @@ The application is straightforward to use:
 - [Angular](https://angular.io/) - A platform for building mobile and desktop web applications.
 - [Angular Material](https://material.angular.io/) - Material Design components for Angular.
 
-## Resources
-
-- The application guide is available on Moodle: [Web Application Tutorial](#).
-
-## Contributing
-
-Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Authors
 
-- **Your Name** - *Initial work* - [YourGithubProfile](#)
+- **RYAN LAHBABI
+-  ZIED EL KAABI **
 
-See also the list of [contributors](#) who participated in this project.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](#) file for details.
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
 
