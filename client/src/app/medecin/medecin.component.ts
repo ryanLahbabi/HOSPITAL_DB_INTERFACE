@@ -42,6 +42,7 @@ export class MedecinComponent implements OnInit {
     } 
     
   }
+
   saveModification(medecin: Medecin){
     this.idMedecinModifying = null;
     if(!this.verifyValues(medecin)){

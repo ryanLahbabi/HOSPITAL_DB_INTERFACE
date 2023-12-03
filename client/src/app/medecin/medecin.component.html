@@ -64,12 +64,15 @@
         </td>
       </ng-template>
 
-      <tr>
-        <td colspan="7">
-          <app-form-creation-medecin (newMedecins)="addMedecin($event)"></app-form-creation-medecin>
-        </td>
-      </tr>
+      
 
   </tbody>
-  
+
 </table>
+
+<div class="form-container">
+  <div class="form-header">Ajout de medecin</div>
+  <div class="form-content">
+      <app-form-creation-medecin (newMedecins)="addMedecin($event)"></app-form-creation-medecin>
+  </div>
+</div>

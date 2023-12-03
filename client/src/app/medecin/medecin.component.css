@@ -29,4 +29,31 @@ table {
 }
 
 
+.form-container {
+  background-color: greenyellow;
+  display: flex;
+  align-items: center; 
+  margin-right: 250px; 
+  font-size: 1.7em;
+  text-align: center;
 
+}
+
+
+.form-header {
+  font-size: 2.0em;
+  font-weight: bold;
+  line-height: 1.2;
+  letter-spacing: normal; 
+  margin-left: 100px;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  flex: none; 
+}
+
+
+.form-content {
+  flex: 4; 
+  display: flex;
+  justify-content: flex-end; 
+}

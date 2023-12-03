@@ -26,9 +26,9 @@ export class FormCreationMedecinComponent implements OnInit {
     this.formCreationMedecin = this.fb.group({
       prenom: ['', Validators.required],
       nom: ['', Validators.required],
-      specialite: ['', Validators.required],
+      specialite: ['Dermatologie', Validators.required],
       annesexperiences: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
-      idservice: [null, [Validators.required, Validators.min(0), Validators.max(9)]]
+      idservice: ['0', [Validators.required, Validators.min(0), Validators.max(9)]]
     });
   }
 
@@ -40,8 +40,13 @@ export class FormCreationMedecinComponent implements OnInit {
     this.communicationService.saveMedecin(this.medecin).subscribe(() => { 
     })
     this.newMedecins.emit(this.medecin);
-    this.formCreationMedecin.reset();
-
+    this.formCreationMedecin.reset({
+      prenom: 'Zied',
+      nom: 'Lahbabi',
+      specialite: 'Dermatologie', 
+      annesexperiences: 15,
+      idservice: '0'
+    });
   }
 
   onFieldClick(): void {
@@ -56,7 +61,7 @@ export class FormCreationMedecinComponent implements OnInit {
         prenom: 'Zied',
         nom: 'Lahbabi',
         specialite: 'Dermatologie',
-        annesexperiences: 7,
+        annesexperiences: 15,
         idservice: '0',
       };
     this.sendField();
@@ -80,9 +85,5 @@ private warnUser() {
   dialogConfig.data = 'modifier les valeurs insérée';
   return this.dialog.open(WarningDialogComponent, dialogConfig);
 }
-
-// private mergeValues(formValues: any, defaultValues: { idmedecin: string; prenom: string; nom: string; specialite: string; annesexperiences: number; idservice: string; }) {
-//   return {...defaultValues, ...formValues};
-// }
 }
 
