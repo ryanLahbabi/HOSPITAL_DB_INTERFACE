@@ -23,13 +23,14 @@ let DatabaseService = class DatabaseService {
     constructor() {
         this.connectionConfig = {
             user: "postgres",
-            database: "hopitalDB",
-            password: "Badrlpb1",
-            port: 5434,
+            database: "hopital_bd",
+            password: "0604371187",
+            port: 5432,
             host: "localhost",
             keepAlive: true
         };
         this.pool = new pg.Pool(this.connectionConfig);
+        this.isConstraintDropped = false;
     }
     getAllMedecins() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -43,7 +44,7 @@ let DatabaseService = class DatabaseService {
                 nom: row.nom,
                 specialite: row.specialite,
                 annesexperiences: row.anneesexperience,
-                idservice: row.idservice.toString() // Conversion en string si nécessaire
+                idservice: row.idservice.toString()
             }));
             client.release();
             return medecins;
@@ -53,6 +54,10 @@ let DatabaseService = class DatabaseService {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(" id delete" + id);
             const client = yield this.pool.connect();
+            if (!this.isConstraintDropped) {
+                yield client.query('ALTER TABLE rendezvous DROP CONSTRAINT rendezvous_idmedecin_fkey;');
+                this.isConstraintDropped = true;
+            }
             const res = yield client.query('DELETE FROM Medecins WHERE idmedecin = $1;', [id]);
             console.log(res);
             client.release();

@@ -1,26 +1,49 @@
-<p>form-creation-medecin works!</p>
 <div>
     <form [formGroup]="formCreationMedecin" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" formControlName="prenom">
-        </div>
-        <div>
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" formControlName="nom">
-        </div>
-        <div>
-            <label for="specialite">Spécialité</label>
-            <input type="text" id="specialite" formControlName="specialite">
-        </div>
-        <div>
-            <label for="annesexperiences">Années d'Expérience</label>
-            <input type="number" id="annesexperiences" formControlName="annesexperiences" min="0" max="99">
-        </div>
-        <div>
-            <label for="idservice">ID Service</label>
-            <input type="number" id="idservice" formControlName="idservice" min="0" max="9">
-        </div>
-        <button type="submit">Submit</button>
+      <div>
+        <label for="prenom">Prénom</label>
+        <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="prenom" formControlName="prenom" placeholder="Zied" (focus)="onFieldClick()" >
+      </div>
+      <div>
+        <label for="nom">Nom</label>
+        <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="nom" formControlName="nom" placeholder="Lahbabi" (focus)="onFieldClick()">
+      </div>
+      <div>
+        <label for="specialite">Spécialité</label>
+        <select id="specialite" formControlName="specialite" >
+          <option value="Dermatologie" selected>Dermatologie</option>
+          <option value="Cardiologue">Neurologie</option>
+          <option value="Ophtalmologie">Ophtalmologie</option>
+          <option value="Orthopédie">Orthopédie</option>
+          <option value="Psychiatrie">Psychiatrie</option>
+          <option value="Cardiologie">Cardiologie</option>
+          <option value="Pédiatrie">Pédiatrie</option>
+          <option value="Chirurgie">Chirurgie</option>
+          <option value="Gynécologie">Gynécologie</option>
+          <option value="Radiologie">Radiologie</option>
+        </select>
+      </div>
+      <div>
+        <label for="annesexperiences">Années d'Expérience</label>
+        <input type="number" id="annesexperiences" formControlName="annesexperiences" min="0" max="99" placeholder="15" (focus)="onFieldClick()">
+      </div>
+      <div>
+        <label for="idservice">ID Service</label>
+        <select id="idservice" formControlName="idservice">
+          <option value="0" selected>0 (Dermatologie) </option>
+          <option value="1">1 (Neurologie) </option>
+          <option value="2">2 (Ophtalmologie)</option>
+          <option value="3">3 (Orthopédie)</option>
+          <option value="4">4 (Psychiatrie)</option>
+          <option value="5">5 (Cardiologie)</option>
+          <option value="6">6 (Pédiatrie) </option>
+          <option value="7">7 (Chirurgie)</option>
+          <option value="8">8 (Gynécologie)</option>
+          <option value="9">9 (Radiologie)</option>
+        </select>
+      </div>
+      <button type="submit"><i class="fa fa-plus"></i>  Ajouter</button>
     </form>
-    </div>
+  </div>
+    
+  

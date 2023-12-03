@@ -3,7 +3,12 @@ import { OnInit, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CommunicationService } from "../services/communication.service";
 import { Medecin } from "../../../../common/interface/medecin";
+import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
 import { Output } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+
+const DIALOG_CUSTOM_CONGIF = { autoFocus: false, panelClass: 'custom-dialog' } as MatDialogConfig;
+
 
 
 @Component({
@@ -14,36 +19,70 @@ import { Output } from "@angular/core";
 export class FormCreationMedecinComponent implements OnInit {
   formCreationMedecin: FormGroup;
   medecin: Medecin;
+  directSubmit = true;
   @Output() newMedecins = new EventEmitter<Medecin>();
 
-  constructor(
-    private fb: FormBuilder,
-    private communicationService: CommunicationService
-  ) 
-  {
+ constructor(private fb: FormBuilder, private communicationService: CommunicationService, public dialog: MatDialog) {
     this.formCreationMedecin = this.fb.group({
       prenom: ['', Validators.required],
       nom: ['', Validators.required],
       specialite: ['', Validators.required],
-      annesexperiences: ['', [Validators.required, Validators.min(0), Validators.max(99)]],
-      idservice: ['', [Validators.required, Validators.min(0), Validators.max(9)]]
-    })
-  }  
-
+      annesexperiences: [null, [Validators.required, Validators.min(0), Validators.max(99)]],
+      idservice: [null, [Validators.required, Validators.min(0), Validators.max(9)]]
+    });
+  }
 
   ngOnInit(): void {
 
   }
+
+  sendField() {
+    this.communicationService.saveMedecin(this.medecin).subscribe(() => { 
+    })
+    this.newMedecins.emit(this.medecin);
+    this.formCreationMedecin.reset();
+
+  }
+
+  onFieldClick(): void {
+    this.directSubmit = false; 
+  }
   onSubmit() {
-    if (this.formCreationMedecin.valid) {
-      console.log(this.formCreationMedecin.value);
+
+    if (this.directSubmit)
+    {
+       this.medecin = {
+        idmedecin: '',
+        prenom: 'Zied',
+        nom: 'Lahbabi',
+        specialite: 'Dermatologie',
+        annesexperiences: 7,
+        idservice: '0',
+      };
+    this.sendField();
+    }
+
+    
+
+    else if (this.formCreationMedecin.valid) {
+      console.log('SLT')
       this.medecin = this.formCreationMedecin.value;
-      console.log(this.medecin + 'medecin de mon form');
-      this.communicationService.saveMedecin(this.medecin).subscribe(() => { 
-        console.log(this.medecin + 'medecin de mon form');
-      })
-      this.newMedecins.emit(this.medecin);
-      this.formCreationMedecin.reset();
+      this.sendField();
+  }
+  else{
+    this.warnUser();
+
   }
 }
+
+private warnUser() {
+  const dialogConfig = Object.assign({}, DIALOG_CUSTOM_CONGIF);
+  dialogConfig.data = 'modifier les valeurs insérée';
+  return this.dialog.open(WarningDialogComponent, dialogConfig);
 }
+
+// private mergeValues(formValues: any, defaultValues: { idmedecin: string; prenom: string; nom: string; specialite: string; annesexperiences: number; idservice: string; }) {
+//   return {...defaultValues, ...formValues};
+// }
+}
+
