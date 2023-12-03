@@ -1,5 +1,6 @@
 <div>
     <form [formGroup]="formCreationMedecin" (ngSubmit)="onSubmit()">
+      <button type="submit"><i class="fa fa-plus"></i>  Ajouter</button>
       <div>
         <label for="prenom">Prénom</label>
         <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="prenom" formControlName="prenom" placeholder="Zied" (focus)="onFieldClick()" >
@@ -12,7 +13,7 @@
         <label for="specialite">Spécialité</label>
         <select id="specialite" formControlName="specialite" >
           <option value="Dermatologie" selected>Dermatologie</option>
-          <option value="Cardiologue">Neurologie</option>
+          <option value="Neurologie">Neurologie</option>
           <option value="Ophtalmologie">Ophtalmologie</option>
           <option value="Orthopédie">Orthopédie</option>
           <option value="Psychiatrie">Psychiatrie</option>
@@ -30,7 +31,7 @@
       <div>
         <label for="idservice">ID Service</label>
         <select id="idservice" formControlName="idservice">
-          <option value="0" selected>0 (Dermatologie) </option>
+          <option value="0" >0 (Dermatologie) </option>
           <option value="1">1 (Neurologie) </option>
           <option value="2">2 (Ophtalmologie)</option>
           <option value="3">3 (Orthopédie)</option>
@@ -42,8 +43,9 @@
           <option value="9">9 (Radiologie)</option>
         </select>
       </div>
-      <button type="submit"><i class="fa fa-plus"></i>  Ajouter</button>
     </form>
   </div>
+
+
     
   
