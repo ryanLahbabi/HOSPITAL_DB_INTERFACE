@@ -40,7 +40,7 @@ The application is straightforward to use:
 ## Authors
 
 - RYAN LAHBABI
-- ZIED EL KAABI
+- ZIED KAABI
 
 
 
