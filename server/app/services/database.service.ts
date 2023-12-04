@@ -8,7 +8,7 @@ export class DatabaseService {
     user: "postgres",
     database: "hopital_bd",
     password: "0604371187",
-    port: 5432,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
+    port: 5433,          // Attention ! Peut aussi être 5433 pour certains utilisateurs
     host: "localhost",
     keepAlive: true
   };
@@ -18,7 +18,6 @@ export class DatabaseService {
 
 
   async getAllMedecins(): Promise<Medecin[]>{
-    console.log("requetes")
     const client =  await this.pool.connect();
     const res = await client.query('SELECT * FROM Medecins ORDER BY idMedecin ASC;');
     console.log(res)
@@ -36,12 +35,11 @@ export class DatabaseService {
   }
 
   async deleteMedecin(id: string): Promise<void>{ 
-    console.log(" id delete"+ id);
     const client =  await this.pool.connect();
 
     if (!this.isConstraintDropped) {
 
-      await client.query('ALTER TABLE rendezvous DROP CONSTRAINT rendezvous_idmedecin_fkey;');
+      await client.query('ALTER TABLE rendezvous DROP CONSTRAINT IF EXISTS rendezvous_idmedecin_fkey;');
       this.isConstraintDropped = true; 
     }
 
@@ -51,7 +49,6 @@ export class DatabaseService {
   }
 
   async addMedecin(medecin: Medecin): Promise<void>{
-    console.log("medecin add dans db service add medecine : " + medecin.annesexperiences + 'medecin annes' + medecin.idservice + 'medecin idservice'+ medecin.idmedecin + 'medecin idmedecin');
     const client =  await this.pool.connect();
     const resId = await client.query('SELECT idmedecin FROM Medecins ORDER BY idmedecin DESC LIMIT 1');
     const lastId = resId.rows[0].idmedecin;
@@ -62,7 +59,6 @@ export class DatabaseService {
   }
 
   async updateMedecin(medecin: Medecin): Promise<void>{
-    console.log("medecin : " + medecin);
     const client =  await this.pool.connect();
     const res = await client.query('UPDATE Medecins SET prenom = $1, nom = $2, specialite = $3, anneesexperience = $4, idservice = $5 WHERE idmedecin = $6;', [medecin.prenom, medecin.nom, medecin.specialite, medecin.annesexperiences, medecin.idservice, medecin.idmedecin]);
     console.log(res);

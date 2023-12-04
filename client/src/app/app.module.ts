@@ -10,12 +10,14 @@ import { AppMaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MedecinComponent } from './medecin/medecin.component';
 import { FormCreationMedecinComponent } from './form-creation-medecin/form-creation-medecin.component';
+import { MissingInputWarningDialogComponent } from './missing-input-warning-dialog/missing-input-warning-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MedecinComponent,
-    FormCreationMedecinComponent
+    FormCreationMedecinComponent,
+    MissingInputWarningDialogComponent
   ],
   imports: [
     CommonModule,

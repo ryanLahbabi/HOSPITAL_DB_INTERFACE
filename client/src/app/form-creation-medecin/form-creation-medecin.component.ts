@@ -6,6 +6,7 @@ import { Medecin } from "../../../../common/interface/medecin";
 import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
 import { Output } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MissingInputWarningDialogComponent } from "../missing-input-warning-dialog/missing-input-warning-dialog.component";
 
 const DIALOG_CUSTOM_CONGIF = { autoFocus: false, panelClass: 'custom-dialog' } as MatDialogConfig;
 
@@ -53,7 +54,9 @@ export class FormCreationMedecinComponent implements OnInit {
     this.directSubmit = false; 
   }
   onSubmit() {
+    this.medecin = this.formCreationMedecin.value;
 
+    console.log('submit')
     if (this.directSubmit)
     {
        this.medecin = {
@@ -71,13 +74,18 @@ export class FormCreationMedecinComponent implements OnInit {
 
     else if (this.formCreationMedecin.valid) {
       console.log('SLT')
-      this.medecin = this.formCreationMedecin.value;
       this.sendField();
   }
-  else{
-    this.warnUser();
-
-  }
+  
+    else if (!this.verifyMissingInput(this.medecin)) {
+      console.log('missing input');
+      this.warnMissingUser();
+    } else if (!this.verifyValues(this.medecin)) {
+      console.log('value error');
+      this.warnUser();
+    }
+  
+  
 }
 
 private warnUser() {
@@ -85,5 +93,34 @@ private warnUser() {
   dialogConfig.data = 'modifier les valeurs insérée';
   return this.dialog.open(WarningDialogComponent, dialogConfig);
 }
+
+
+private warnMissingUser() {
+  const dialogConfig = Object.assign({}, DIALOG_CUSTOM_CONGIF);
+  dialogConfig.data = 'modifier les valeurs insérée';
+  return this.dialog.open(MissingInputWarningDialogComponent, dialogConfig);
+}
+
+
+
+verifyValues(medecin: Medecin): boolean {
+
+  if (typeof medecin.annesexperiences === 'number' && medecin.annesexperiences >= 0 && medecin.annesexperiences <= 99 ) {
+      return true;
+    }
+  
+  return false; 
+}
+
+verifyMissingInput(medecin: Medecin): boolean {
+
+    if ( medecin.prenom === '' || medecin.nom === '' ) 
+      return false;
+
+    return true; 
+}
+
+
+
 }
 

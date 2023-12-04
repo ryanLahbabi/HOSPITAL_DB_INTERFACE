@@ -25,7 +25,7 @@ let DatabaseService = class DatabaseService {
             user: "postgres",
             database: "hopital_bd",
             password: "0604371187",
-            port: 5432,
+            port: 5433,
             host: "localhost",
             keepAlive: true
         };
@@ -34,7 +34,6 @@ let DatabaseService = class DatabaseService {
     }
     getAllMedecins() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("requetes");
             const client = yield this.pool.connect();
             const res = yield client.query('SELECT * FROM Medecins ORDER BY idMedecin ASC;');
             console.log(res);
@@ -52,10 +51,9 @@ let DatabaseService = class DatabaseService {
     }
     deleteMedecin(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(" id delete" + id);
             const client = yield this.pool.connect();
             if (!this.isConstraintDropped) {
-                yield client.query('ALTER TABLE rendezvous DROP CONSTRAINT rendezvous_idmedecin_fkey;');
+                yield client.query('ALTER TABLE rendezvous DROP CONSTRAINT IF EXISTS rendezvous_idmedecin_fkey;');
                 this.isConstraintDropped = true;
             }
             const res = yield client.query('DELETE FROM Medecins WHERE idmedecin = $1;', [id]);
@@ -65,7 +63,6 @@ let DatabaseService = class DatabaseService {
     }
     addMedecin(medecin) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("medecin add dans db service add medecine : " + medecin.annesexperiences + 'medecin annes' + medecin.idservice + 'medecin idservice' + medecin.idmedecin + 'medecin idmedecin');
             const client = yield this.pool.connect();
             const resId = yield client.query('SELECT idmedecin FROM Medecins ORDER BY idmedecin DESC LIMIT 1');
             const lastId = resId.rows[0].idmedecin;
@@ -77,7 +74,6 @@ let DatabaseService = class DatabaseService {
     }
     updateMedecin(medecin) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("medecin : " + medecin);
             const client = yield this.pool.connect();
             const res = yield client.query('UPDATE Medecins SET prenom = $1, nom = $2, specialite = $3, anneesexperience = $4, idservice = $5 WHERE idmedecin = $6;', [medecin.prenom, medecin.nom, medecin.specialite, medecin.annesexperiences, medecin.idservice, medecin.idmedecin]);
             console.log(res);

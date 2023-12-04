@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Medecin } from '../../../../common/interface/medecin';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
+import { MissingInputWarningDialogComponent } from '../missing-input-warning-dialog/missing-input-warning-dialog.component';
 
 
 
@@ -44,16 +45,20 @@ export class MedecinComponent implements OnInit {
   }
 
   saveModification(medecin: Medecin){
-    this.idMedecinModifying = null;
     if(!this.verifyValues(medecin)){
       this.warnUser()
       this.cancelModification(medecin.idmedecin)
+    }
+    else if(!this.verifyMissingInput(medecin)){
+      this.cancelModification(medecin.idmedecin)
+      this.warnMissingUser()
     }
     else{
       this.CommunicationService.updateMedecin(medecin).subscribe((data: Medecin[]) => {
         this.medecins = data
       });
     }
+    this.idMedecinModifying = null;
   }
   cancelModification(idmedecin: string){
     if (this.idMedecinModifying !== null) {
@@ -76,18 +81,23 @@ export class MedecinComponent implements OnInit {
     return this.dialog.open(WarningDialogComponent, dialogConfig);
 }
 
+private warnMissingUser() {
+  const dialogConfig = Object.assign({}, DIALOG_CUSTOM_CONGIF);
+  dialogConfig.data = 'modifier les valeurs insérée';
+  return this.dialog.open(MissingInputWarningDialogComponent, dialogConfig);
+}
+
   addMedecin(medecin: Medecin){
-    console.log('addmed')
     if(!this.verifyValues(medecin)){
-    console.log('warninnggg')
 
       this.warnUser();
+    }
+     if(!this.verifyMissingInput(medecin)){
+      this.warnMissingUser();
     }
     else{
       
     medecin.idmedecin = (parseInt( this.medecins[this.medecins.length-1].idmedecin) + 1).toString();
-    console.log(medecin.idmedecin )
-    console.log('goodvalue')
 
     this.medecins.push(medecin);
     }
@@ -108,6 +118,14 @@ export class MedecinComponent implements OnInit {
       }
     
     return false; 
+  }
+
+  verifyMissingInput(medecin: Medecin): boolean {
+
+      if ( medecin.prenom === '' || medecin.nom === '' ) 
+        return false;
+
+      return true; 
   }
   
 

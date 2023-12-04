@@ -36,17 +36,14 @@ public constructor(private readonly http: HttpClient) {}
   }
 
   deleteMedecin(id: string): Observable<Medecin> {
-    console.log('id : ' + id)
     return this.http.delete<Medecin>(this.BASE_URL+"/"+id);
   }
 
   saveMedecin(medecin: Medecin): Observable<Medecin>{
-    console.log(medecin + " medecin dans save medecin la bite communication service")
     return this.http.post<Medecin>(this.BASE_URL, medecin);
   }
 
   updateMedecin(medecin: Medecin){
-    console.log(medecin)
     return this.http.put<Medecin[]>(this.BASE_URL, medecin);
   }
 }
