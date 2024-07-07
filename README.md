@@ -41,6 +41,7 @@ The application is straightforward to use:
 
 - RYAN LAHBABI
 - ZIED KAABI
+- BADR AMINE
 
 
 
